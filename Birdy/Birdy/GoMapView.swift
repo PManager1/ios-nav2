@@ -93,6 +93,8 @@ struct SwipeableCardView: View {
     @State private var offset = CGSize.zero
     @State private var opacity = 1.0
     @State private var rotation = 0.0
+    // var onClose: () -> Void
+    
     
     var body: some View {
         ZStack {
@@ -112,6 +114,22 @@ struct SwipeableCardView: View {
                 .shadow(radius: 8)
             
             VStack(spacing: 12) {
+
+                HStack {
+            Spacer()
+            Button(action: {
+                // Close action
+                print("Close tapped")
+            }) {
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding([.top, .trailing], 12)
+
+        
                 Text("From: \(trip.from)")
                     .font(.custom("Nunito-Regular", size: 18))
                     .foregroundColor(.black)
