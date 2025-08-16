@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 
-struct TripParameters {
+struct TripParametersD {
     let tripId: String?
     let to: String?
     let from: String?
@@ -18,8 +18,8 @@ struct TripParameters {
     }
 }
 
-struct VArrived: View {
-    private static let staticParameters = TripParameters(
+struct DropOff: View {
+    private static let staticParameters = TripParametersD(
         tripId: "123",
         to: "Destination",
         from: "5167 Lambert Dr, Temple Hills, MD",
@@ -43,7 +43,7 @@ struct VArrived: View {
             center: CLLocationCoordinate2D(latitude: 38.8205, longitude: -76.9573),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
-        if let coords = VArrived.staticParameters.fromCoords,
+        if let coords = DropOff.staticParameters.fromCoords,
            coords.latitude.isFinite, coords.longitude.isFinite {
             self._region = State(initialValue: MKCoordinateRegion(
                 center: CLLocationCoordinate2D(latitude: coords.latitude, longitude: coords.longitude),
@@ -123,7 +123,7 @@ struct VArrived: View {
                         
                         // Pickup address with divider
                         VStack(spacing: 8) {
-                            Text("Pick-up: \(VArrived.staticParameters.from ?? "Unknown Address")")
+                            Text("Pick-up: \(DropOff.staticParameters.from ?? "Unknown Address")")
                                 .font(.custom("Nunito-Bold", size: 14))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -166,7 +166,7 @@ struct VArrived: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: VConfirmView(), isActive: $navigateToConfirm) {
+                        NavigationLink(destination: DropOffView(), isActive: $navigateToConfirm) {
                             EmptyView()
                         }
                     }
@@ -289,7 +289,7 @@ struct VArrived: View {
                         .shadow(color: .black.opacity(0.2), radius: 5, x: 2, y: 2)
                     
                     // Label
-                    Text("Swipe to Arrive")
+                    Text("Confirm Drop Off")
                         .font(.custom("Nunito-SemiBold", size: 18))
                         .foregroundColor(.white)
                         .padding(.leading, 80)
@@ -336,11 +336,6 @@ struct VArrived: View {
                         .opacity(offset > 0 ? 0.5 : 0)
                 }
                 .frame(height: handleSize)
-                .padding()
-                .background(
-//                NavigationLink("", destination: VConfirm(), isActive: $navigate)
-                    .opacity(0)
-            )
             }
         }
     }
@@ -350,9 +345,9 @@ struct VArrived: View {
         let coordinate: CLLocationCoordinate2D
     }
     
-    struct VConfirmView: View {
+    struct DropOffView: View {
         var body: some View {
-            Text("VConfirm Screen")
+            Text("DropOff Screen")
                 .font(.custom("Nunito-Bold", size: 28))
                 .foregroundColor(.blue)
         }
@@ -367,26 +362,26 @@ struct VArrived: View {
     }
     
     private func handleGoogleMaps() {
-        let encodedAddress = (VArrived.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let encodedAddress = (DropOff.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let url = URL(string: "https://www.google.com/maps/dir/?api=1&destination=\(encodedAddress)&travelmode=driving")!
         UIApplication.shared.open(url)
     }
     
     private func handleAppleMaps() {
-        let encodedAddress = (VArrived.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let encodedAddress = (DropOff.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let url = URL(string: "http://maps.apple.com/?daddr=\(encodedAddress)")!
         UIApplication.shared.open(url)
     }
     
     private func handleWazeMaps() {
-        let encodedAddress = (VArrived.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let encodedAddress = (DropOff.staticParameters.from ?? "Unknown Address").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let url = URL(string: "https://waze.com/ul?q=\(encodedAddress)&navigate=yes")!
         UIApplication.shared.open(url)
     }
 }
 
-struct VArrived_Previews: PreviewProvider {
+struct DropOff_Previews: PreviewProvider {
     static var previews: some View {
-        VArrived()
+        DropOff()
     }
 }
