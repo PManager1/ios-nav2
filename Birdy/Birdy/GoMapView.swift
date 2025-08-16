@@ -957,157 +957,153 @@ struct SettingsSheetView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-    // Header with Chevron and Menu
-    ZStack {
-        Color(#colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)) // Dark green
-            .frame(height: 60)
-        
-        HStack {
-            // Chevron Down to Close
-            Button(action: {
-                withAnimation {
-                    dismiss()
-                }
-            }) {
-                VStack {
-                    Text("⌃") // Upside-down chevron (^ pointing down)
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.white)
-                        .rotationEffect(.degrees(180))
-                    Text("Some options for you")
-                        .font(.custom("Nunito-SemiBold", size: 16))
-                        .foregroundColor(.white)
+            // Header with Chevron, Text, and Menu
+            ZStack {
+                Color(#colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)) // Dark green
+                    .frame(height: 60)
+                
+                HStack {
+                    // Chevron and Text in one line to Close
+                    Button(action: {
+                        withAnimation {
+                            dismiss()
+                        }
+                    }) {
+                        HStack(spacing: 8) {
+                            Text("⌃") // Upside-down chevron (^ pointing down)
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.white)
+                                .rotationEffect(.degrees(180))
+                            Text("Some options for you")
+                                .font(.custom("Nunito-SemiBold", size: 16))
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.leading, 20)
+                    
+                    Spacer()
+                    
+                    // Menu Icon
+                    Button(action: {
+                        print("Menu tapped")
+                    }) {
+                        Image(systemName: "line.horizontal.3")
+                            .foregroundColor(.white)
+                            .imageScale(.large)
+                            .padding(.trailing, 20)
+                    }
                 }
             }
-            .padding(.leading, 20)
             
-            Spacer()
+            // Settings options
+            ScrollView {
+                VStack(alignment: .leading, spacing: 8) {
+                    Button(action: {
+                        print("Earnings tapped")
+                    }) {
+                        HStack(spacing: 15) {
+                            Image(systemName: "dollarsign.circle.fill")
+                                .foregroundColor(.purple)
+                                .imageScale(.large)
+                            Text("Earnings")
+                                .font(.custom("Nunito-SemiBold", size: 18))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.vertical, 15)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .background(Color.gray.opacity(0.05))
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    
+                    Button(action: {
+                        print("See More Promotions tapped")
+                    }) {
+                        HStack(spacing: 15) {
+                            Image(systemName: "tag.fill")
+                                .foregroundColor(.purple)
+                                .imageScale(.large)
+                            Text("See More Promotions")
+                                .font(.custom("Nunito-SemiBold", size: 18))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.vertical, 15)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .background(Color.gray.opacity(0.05))
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    
+                    Button(action: {
+                        print("See Driving Time History tapped")
+                    }) {
+                        HStack(spacing: 15) {
+                            Image(systemName: "clock.fill")
+                                .foregroundColor(.purple)
+                                .imageScale(.large)
+                            Text("See Driving Time History")
+                                .font(.custom("Nunito-SemiBold", size: 18))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.vertical, 15)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .background(Color.gray.opacity(0.05))
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+            }
             
-            // Menu Icon
-            Button(action: {
-                print("Menu tapped")
-            }) {
-                Image(systemName: "line.horizontal.3")
+            // Bottom Toolbar Strip
+            HStack {
+                // Left Icon
+                Button(action: {
+                    print("Left icon tapped")
+                }) {
+                    Image(systemName: "gear")
+                        .foregroundColor(.white)
+                        .imageScale(.large)
+                        .padding()
+                        .background(Color.purple)
+                        .clipShape(Circle())
+                }
+                .padding(.leading, 20)
+                
+                Spacer()
+                
+                // Center Text with Emoji
+                Text("🛑 Go Offline")
+                    .font(.custom("Nunito-SemiBold", size: 18))
                     .foregroundColor(.white)
-                    .imageScale(.large)
-                    .padding(.trailing, 20)
-            }
-        }
-    }
-    
-    // Settings options
-    ScrollView {
-        VStack(alignment: .leading, spacing: 8) {
-            Button(action: {
-                print("Earnings tapped")
-            }) {
-                HStack(spacing: 15) {
-                    Image(systemName: "dollarsign.circle.fill")
-                        .foregroundColor(.purple)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.red)
+                    .cornerRadius(10)
+                
+                Spacer()
+                
+                // Right Icon
+                Button(action: {
+                    print("Right icon tapped")
+                }) {
+                    Image(systemName: "bell")
+                        .foregroundColor(.white)
                         .imageScale(.large)
-                    Text("Earnings")
-                        .font(.custom("Nunito-SemiBold", size: 18))
-                        .foregroundColor(.black)
+                        .padding()
+                        .background(Color.purple)
+                        .clipShape(Circle())
                 }
-                .padding(.vertical, 15)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.trailing, 20)
             }
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-            
-            Button(action: {
-                print("See More Promotions tapped")
-            }) {
-                HStack(spacing: 15) {
-                    Image(systemName: "tag.fill")
-                        .foregroundColor(.purple)
-                        .imageScale(.large)
-                    Text("See More Promotions")
-                        .font(.custom("Nunito-SemiBold", size: 18))
-                        .foregroundColor(.black)
-                }
-                .padding(.vertical, 15)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-            
-            Button(action: {
-                print("See Driving Time History tapped")
-            }) {
-                HStack(spacing: 15) {
-                    Image(systemName: "clock.fill")
-                        .foregroundColor(.purple)
-                        .imageScale(.large)
-                    Text("See Driving Time History")
-                        .font(.custom("Nunito-SemiBold", size: 18))
-                        .foregroundColor(.black)
-                }
-                .padding(.vertical, 15)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+            .frame(maxWidth: .infinity)
+            .background(Color(#colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1))) // Matching header color
+            .padding(.bottom, 10)
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
-    }
-    
-    // Bottom Toolbar Strip
-    HStack {
-        // Left Icon
-        Button(action: {
-            print("Left icon tapped")
-        }) {
-            Image(systemName: "gear")
-                .foregroundColor(.white)
-                .imageScale(.large)
-                .padding()
-                .background(Color.purple)
-                .clipShape(Circle())
-        }
-        .padding(.leading, 20)
-        
-        Spacer()
-        
-        // Center Text with Emoji
-        Text("🛑 Go Offline")
-            .font(.custom("Nunito-SemiBold", size: 18))
-            .foregroundColor(.white)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(Color.red)
-            .cornerRadius(10)
-        
-        Spacer()
-        
-        // Right Icon
-        Button(action: {
-            print("Right icon tapped")
-        }) {
-            Image(systemName: "bell")
-                .foregroundColor(.white)
-                .imageScale(.large)
-                .padding()
-                .background(Color.purple)
-                .clipShape(Circle())
-        }
-        .padding(.trailing, 20)
-    }
-    .frame(maxWidth: .infinity)
-    .background(Color(#colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1))) // Matching header color
-    .padding(.bottom, 10)
-}
-.frame(maxWidth: .infinity, maxHeight: 600)
-.background(Color.white)
-.cornerRadius(20)
-.padding(.bottom, 0)
-.ignoresSafeArea(.all, edges: .bottom)
-       
-      
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .ignoresSafeArea()
     }
 }
 
