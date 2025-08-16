@@ -137,15 +137,15 @@ struct VArrived: View {
                         }
                         
                         // Swipe button
-                        // SwipeButton(navigate: $navigateToConfirm, glowOpacity: $swipeGlowOpacity)
-                        //     .frame(height: 50)
-                        //     .padding(.horizontal, 40)
-                        //     .padding(.vertical, 10)
-                        //     .onAppear {
-                        //         withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
-                        //             swipeGlowOpacity = 0.6
-                        //         }
-                        //     }
+                        SwipeButton(navigate: $navigateToConfirm, glowOpacity: $swipeGlowOpacity)
+                            .frame(height: 50)
+                            .padding(.horizontal, 40)
+                            .padding(.vertical, 10)
+                            .onAppear {
+                                withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                                    swipeGlowOpacity = 0.6
+                                }
+                            }
                         
                         // Action buttons
                         HStack(spacing: 50) {
@@ -272,78 +272,78 @@ struct VArrived: View {
         }
     }
     
-    // struct SwipeButton: View {
-    //     @Binding var navigate: Bool
-    //     @Binding var glowOpacity: Double
-    //     @State private var offset: CGFloat = 0
-    //     @State private var isSwiped = false
-    //     private let handleSize: CGFloat = 50
+    struct SwipeButton: View {
+        @Binding var navigate: Bool
+        @Binding var glowOpacity: Double
+        @State private var offset: CGFloat = 0
+        @State private var isSwiped = false
+        private let handleSize: CGFloat = 50
         
-    //     var body: some View {
-    //         GeometryReader { geometry in
-    //             ZStack(alignment: .leading) {
-    //                 // Track
-    //                 Capsule()
-    //                     .fill(LinearGradient(colors: [Color(hex: "#3B82F6"), Color(hex: "#8B5CF6")], startPoint: .leading, endPoint: .trailing))
-    //                     .frame(height: handleSize)
-    //                     .shadow(color: .black.opacity(0.2), radius: 5, x: 2, y: 2)
+        var body: some View {
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    // Track
+                    Capsule()
+                        .fill(LinearGradient(colors: [Color(hex: "#3B82F6"), Color(hex: "#8B5CF6")], startPoint: .leading, endPoint: .trailing))
+                        .frame(height: handleSize)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 2, y: 2)
                     
-    //                 // Label
-    //                 Text("Swipe to Arrive")
-    //                     .font(.custom("Nunito-SemiBold", size: 18))
-    //                     .foregroundColor(.white)
-    //                     .padding(.leading, 80)
-    //                     .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
+                    // Label
+                    Text("Swipe to Arrive")
+                        .font(.custom("Nunito-SemiBold", size: 18))
+                        .foregroundColor(.white)
+                        .padding(.leading, 80)
+                        .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
                     
-    //                 // Handle
-    //                 ZStack {
-    //                     Capsule()
-    //                         .fill(LinearGradient(colors: [.white, Color(hex: "#E0E7FF")], startPoint: .topLeading, endPoint: .bottomTrailing))
-    //                         .frame(width: handleSize, height: handleSize)
-    //                         .shadow(color: .black.opacity(glowOpacity), radius: 10, x: 0, y: 0)
-    //                     Image(systemName: "chevron.right.2")
-    //                         .foregroundColor(Color(hex: "#3B82F6"))
-    //                         .font(.system(size: 26, weight: .bold))
-    //                 }
-    //                 .offset(x: offset)
-    //                 .gesture(
-    //                     DragGesture()
-    //                         .onChanged { value in
-    //                             let maxOffset = geometry.size.width - handleSize
-    //                             offset = min(max(0, value.translation.width), maxOffset)
+                    // Handle
+                    ZStack {
+                        Capsule()
+                            .fill(LinearGradient(colors: [.white, Color(hex: "#E0E7FF")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .frame(width: handleSize, height: handleSize)
+                            .shadow(color: .black.opacity(glowOpacity), radius: 10, x: 0, y: 0)
+                        Image(systemName: "chevron.right.2")
+                            .foregroundColor(Color(hex: "#3B82F6"))
+                            .font(.system(size: 26, weight: .bold))
+                    }
+                    .offset(x: offset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                let maxOffset = geometry.size.width - handleSize
+                                offset = min(max(0, value.translation.width), maxOffset)
                                 
-    //                             if offset >= maxOffset * 0.85 && !isSwiped {
-    //                                 isSwiped = true
-    //                                 navigate = true
-    //                                 withAnimation(.easeInOut(duration: 0.3)) {
-    //                                     glowOpacity = 0.8
-    //                                 }
-    //                             }
-    //                         }
-    //                         .onEnded { _ in
-    //                             withAnimation(.easeOut) {
-    //                                 offset = 0
-    //                                 isSwiped = false
-    //                                 glowOpacity = 0.4
-    //                             }
-    //                         }
-    //                 )
-    //                 // Trail effect
-    //                 Capsule()
-    //                     .fill(Color.white.opacity(0.3))
-    //                     .frame(width: offset, height: handleSize * 0.8)
-    //                     .offset(x: 0)
-    //                     .opacity(offset > 0 ? 0.5 : 0)
-    //             }
-    //             .frame(height: handleSize)
-    //             .padding()
-    //             .background(
-    //             NavigationLink("", destination: VConfirm(), isActive: $navigate)
-    //                 .opacity(0)
-    //         )
-    //         }
-    //     }
-    // }
+                                if offset >= maxOffset * 0.85 && !isSwiped {
+                                    isSwiped = true
+                                    navigate = true
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        glowOpacity = 0.8
+                                    }
+                                }
+                            }
+                            .onEnded { _ in
+                                withAnimation(.easeOut) {
+                                    offset = 0
+                                    isSwiped = false
+                                    glowOpacity = 0.4
+                                }
+                            }
+                    )
+                    // Trail effect
+                    Capsule()
+                        .fill(Color.white.opacity(0.3))
+                        .frame(width: offset, height: handleSize * 0.8)
+                        .offset(x: 0)
+                        .opacity(offset > 0 ? 0.5 : 0)
+                }
+                .frame(height: handleSize)
+                .padding()
+                .background(
+                NavigationLink("", destination: VConfirm(), isActive: $navigate)
+                    .opacity(0)
+            )
+            }
+        }
+    }
     
     struct MapAnnotationItem: Identifiable {
         let id = UUID()
