@@ -11,7 +11,7 @@ struct HomeView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
         }
-        .navigationTitle("Home Screen")
+        .navigationTitle("Put more screens hereB")
     }
 }
 

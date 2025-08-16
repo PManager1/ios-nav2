@@ -55,13 +55,13 @@ struct SplashScreenView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Image(systemName: "bird.fill") // Changed to bird icon for Birdy2 app
+                Image(systemName: "bird.fill") // Changed to bird icon for Birdy app
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
                     .foregroundStyle(.white)
                 
-                Text("Birdy2")
+                Text("Birdy")
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
             }
@@ -92,58 +92,7 @@ class AuthManager: ObservableObject {
 }
 
 
-// Sign In View
 
-
-// struct SignInView: View {
-//     @EnvironmentObject var authManager: AuthManager
-//     @State private var username: String = ""
-//     @State private var password: String = ""
-    
-//     var body: some View {
-//         VStack(spacing: 20) {
-//             Text("Sign In")
-//                 .font(.largeTitle)
-//                 .fontWeight(.bold)
-            
-//             TextField("Username", text: $username)
-//                 .textFieldStyle(.roundedBorder)
-//                 .padding(.horizontal)
-            
-//             SecureField("Password", text: $password)
-//                 .textFieldStyle(.roundedBorder)
-//                 .padding(.horizontal)
-            
-//             // Button(action: {
-//             //     // Simulate login (replace with actual auth logic)
-//             //     authManager.signIn(token: "sampleToken")
-//             // }) 
-//             Button(action: {
-//     if username == "a" && password == "a" {
-//         authManager.signIn(token: "validToken")
-//     } else {
-//         // Optionally, show an alert or message for invalid credentials
-//         print("Invalid username or password")
-//     }
-// })
-            
-//             {
-//                 Text("Sign In")
-//                     .font(.headline)
-//                     .padding()
-//                     .frame(maxWidth: .infinity)
-//                     .background(Color.blue)
-//                     .foregroundStyle(.white)
-//                     .clipShape(RoundedRectangle(cornerRadius: 10))
-//             }
-//             .padding(.horizontal)
-//         }
-//         .padding()
-//         .background(Color.gray.opacity(0.1).ignoresSafeArea())
-//         .navigationTitle("Sign In")
-//         .navigationBarTitleDisplayMode(.inline)
-//     }
-// }
 
 // Preview
 struct NavigationControllerView_Previews: PreviewProvider {
