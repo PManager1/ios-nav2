@@ -126,27 +126,6 @@ struct SwipeableCardView: View {
                 
                 Spacer()
                 
-                
-
-                // NavigationLink(destination: VArrived(trip: trip)) {
-                // NavigationLink(destination: VArrived(trip: trip.toTripParameters())) {
-
-                // // NavigationLink(destination: VArrived()) {                    
-                //     Text("Accept")
-                //         .font(.custom("Nunito-SemiBold", size: 16))
-                //         .foregroundColor(.white)
-                //         .padding(.vertical, 10)
-                //         .padding(.horizontal, 30)
-                //         .background(
-                //             LinearGradient(
-                //                 gradient: Gradient(colors: [.green, .blue]),
-                //                 startPoint: .leading,
-                //                 endPoint: .trailing
-                //             )
-                //         )
-                //         .clipShape(Capsule())
-                //         .shadow(radius: 3)
-                // }
 
                 NavigationLink(destination: VArrived(trip: TripParameters(
                         tripId: trip.id,
@@ -407,7 +386,7 @@ struct BottomToolbarView: View {
             HStack {
                 Button(action: onHomeTap) {
                     Image(systemName: "house.fill")
-                        .font(.system(size: 24))
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.white)
                         .frame(width: 50, height: 50)
                         .background(
@@ -578,38 +557,47 @@ var body: some View {
                 )
             }
             
-     VStack {
-    NavigationButtonView()
+  VStack {
+    HStack {
+       NavigationLink(destination: HomeView()) {
+            Image(systemName: "house.fill")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundColor(.white)
+                .padding(10)
+                .background(
+                    ZStack {
+                        LinearGradient(
+                            gradient: Gradient(colors: [.blue, .purple, .pink]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                        Color.white.opacity(0.2)
+                            .blur(radius: 4)
+                    }
+                )
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.white.opacity(0.8), .clear]),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            ),
+                            lineWidth: 2
+                        )
+                )
+                .shadow(color: .black.opacity(0.4), radius: 8, x: 3, y: 3)
+                .padding(.leading, 20)
+                .padding(.top, 10)
+        }
+        Spacer()
+        NavigationButtonView()
+    }
     Spacer()
 }
 
 
-// VStack {
-//     Spacer()
-//     BottomToolbarView(
-//         isOnline: isOnline,
-//         buttonOpacity: buttonOpacity,
-//         tripsCount: trips.count,
-//         onTripsToggle: {
-//             showTrips.toggle()
-//             refreshTrigger = UUID()
-//             print("Trips button toggled: showTrips = \(showTrips), trips.count = \(trips.count), isLoadingTrips = \(isLoadingTrips), currentTripIndex = \(currentTripIndex)")
-//         },
-//         onOnlineToggle: {
-//             isOnline.toggle()
-//             print("Online/Offline toggled: isOnline = \(isOnline)")
-//             if isOnline {
-//                 withAnimation(.easeInOut(duration: 2)) {
-//                     buttonOpacity = 0.0
-//                 }
-//             } else {
-//                 buttonOpacity = 1.0
-//             }
-//         },
-//         onHomeTap: { showHomeSheet = true },
-//         onSettingsTap: { showSettingsSheet = true }
-//     )
-// }
 
 VStack {
     Spacer()
