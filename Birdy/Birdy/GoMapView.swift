@@ -126,9 +126,28 @@ struct SwipeableCardView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    print("Accept button tapped for trip: \(trip.id)")
-                }) {
+                // Button(action: {
+                //     print("Accept button tapped for trip: \(trip.id)")
+                // }) {
+                //     Text("Accept")
+                //         .font(.custom("Nunito-SemiBold", size: 16))
+                //         .foregroundColor(.white)
+                //         .padding(.vertical, 10)
+                //         .padding(.horizontal, 30)
+                //         .background(
+                //             LinearGradient(
+                //                 gradient: Gradient(colors: [.green, .blue]),
+                //                 startPoint: .leading,
+                //                 endPoint: .trailing
+                //             )
+                //         )
+                //         .clipShape(Capsule())
+                //         .shadow(radius: 3)
+                // }
+                // .padding(.bottom, 16)
+
+                // NavigationLink(destination: VArrived(trip: trip)) {
+                NavigationLink(destination: VArrived()) {                    
                     Text("Accept")
                         .font(.custom("Nunito-SemiBold", size: 16))
                         .foregroundColor(.white)
@@ -144,6 +163,7 @@ struct SwipeableCardView: View {
                         .clipShape(Capsule())
                         .shadow(radius: 3)
                 }
+                .buttonStyle(PlainButtonStyle()) // preserves your custom button style
                 .padding(.bottom, 16)
             }
             .padding()
