@@ -1,5 +1,7 @@
 AUGUEST 16- 2025  -
-im able to get the trips data on GoMapView when i dont have the signin screen hooked up yet. Wtf.
+Im able to get the trips data on GoMapView when i dont have the signin screen hooked up yet. Wtf.
+
+
 
 
 AUGUEST some 2025  -
