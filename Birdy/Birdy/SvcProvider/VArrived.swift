@@ -34,6 +34,10 @@ struct VArrived: View {
     init(trip: TripParameters) {
         self.trip = trip // <-- This is where 'trip' is initialized.
 
+
+
+        print("Spit Trip details: \(trip)")
+
         // Initialize all other properties.
         self._showCancelAlert = State(initialValue: false)
         self._navigateToConfirm = State(initialValue: false)
