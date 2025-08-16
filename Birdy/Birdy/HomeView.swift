@@ -46,7 +46,7 @@ struct HomeView: View {
                         .foregroundColor(Color(red: 30/255, green: 64/255, blue: 175/255))
                         .padding(.top, 10)
                     // SettingsButton(title: "Map Test Screen", color: Color(hex: "#FF9800"), destination: { GoMapView() })
-                    SettingsButton(title: "V Arrived", color: Color(hex: "#FF9800"), destination: { VArrived() })
+                    // SettingsButton(title: "V Arrived", color: Color(hex: "#FF9800"), destination: { VArrived() })
 
                     // SettingsButton(title: "Driver Detail", color: Color(red: 30/255, green: 64/255, blue: 175/255), destination: { DriverDetail() })
                     // SettingsButton(title: "Driver Directory", color: Color(red: 30/255, green: 64/255, blue: 175/255), destination: { DriverDirectory() })

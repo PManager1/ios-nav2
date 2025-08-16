@@ -126,9 +126,12 @@ struct SwipeableCardView: View {
                 
                 Spacer()
                 
-                // Button(action: {
-                //     print("Accept button tapped for trip: \(trip.id)")
-                // }) {
+                
+
+                // NavigationLink(destination: VArrived(trip: trip)) {
+                // NavigationLink(destination: VArrived(trip: trip.toTripParameters())) {
+
+                // // NavigationLink(destination: VArrived()) {                    
                 //     Text("Accept")
                 //         .font(.custom("Nunito-SemiBold", size: 16))
                 //         .foregroundColor(.white)
@@ -144,25 +147,34 @@ struct SwipeableCardView: View {
                 //         .clipShape(Capsule())
                 //         .shadow(radius: 3)
                 // }
-                // .padding(.bottom, 16)
 
-                // NavigationLink(destination: VArrived(trip: trip)) {
-                NavigationLink(destination: VArrived()) {                    
-                    Text("Accept")
-                        .font(.custom("Nunito-SemiBold", size: 16))
-                        .foregroundColor(.white)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 30)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.green, .blue]),
-                                startPoint: .leading,
-                                endPoint: .trailing
+                NavigationLink(destination: VArrived(trip: TripParameters(
+                        tripId: trip.id,
+                        to: trip.to,
+                        from: trip.from,
+                        distance: nil,
+                        price: Double(trip.price) ?? 0.0,
+                        toCoords: trip.toCoords.map { TripParameters.Coordinates(latitude: $0.coordinates[1], longitude: $0.coordinates[0]) },
+                        fromCoords: trip.fromCoords.map { TripParameters.Coordinates(latitude: $0.coordinates[1], longitude: $0.coordinates[0]) },
+                        estimatedTime: nil,
+                        riderName: nil
+                    ))) {
+                        Text("Accept")
+                            .font(.custom("Nunito-SemiBold", size: 16))
+                            .foregroundColor(.white)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 30)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.green, .blue]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
                             )
-                        )
-                        .clipShape(Capsule())
-                        .shadow(radius: 3)
-                }
+                            .clipShape(Capsule())
+                            .shadow(radius: 3)
+                    }
+
                 .buttonStyle(PlainButtonStyle()) // preserves your custom button style
                 .padding(.bottom, 16)
             }
@@ -446,6 +458,21 @@ struct BottomToolbarView: View {
 
 // Updated GoMapView
 struct GoMapView: View {
+// test start
+    // let trip: TripParameters = TripParameters(
+    let trip = TripParameters(        
+        tripId: "123",
+        to: "Destination",
+        from: "5167 Lambert Dr, Temple Hills, MD",
+        distance: 5.0,
+        price: 10.0,
+        toCoords: .init(latitude: 38.8205, longitude: -76.9573),
+        fromCoords: .init(latitude: 38.8205, longitude: -76.9573),
+        estimatedTime: 15.0,
+        riderName: "John Doe"
+    )
+    // test end
+
     @StateObject private var userLocationManager = UserLocationManager()
     @State private var routePolyline: MKPolyline?
     @State private var region = MKCoordinateRegion(

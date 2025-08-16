@@ -18,32 +18,35 @@ struct TripParameters {
     }
 }
 
+
 struct VArrived: View {
-    private static let staticParameters = TripParameters(
-        tripId: "123",
-        to: "Destination",
-        from: "5167 Lambert Dr, Temple Hills, MD",
-        distance: 5.0,
-        price: 10.0,
-        toCoords: .init(latitude: 38.8205, longitude: -76.9573),
-        fromCoords: .init(latitude: 38.8205, longitude: -76.9573),
-        estimatedTime: 15.0,
-        riderName: "John Doe"
-    )
-    
+
+    let trip: TripParameters // <-- This is the only line you need here.
+
     @State private var region: MKCoordinateRegion
     @State private var showCancelAlert = false
     @State private var navigateToConfirm = false
     @State private var mapScale: CGFloat = 0.8
     @State private var buttonOpacity: Double = 0
     @State private var swipeGlowOpacity: Double = 0
-    
-    init() {
+
+    // 2. The 'init' method will set the value one time.
+    init(trip: TripParameters) {
+        self.trip = trip // <-- This is where 'trip' is initialized.
+
+        // Initialize all other properties.
+        self._showCancelAlert = State(initialValue: false)
+        self._navigateToConfirm = State(initialValue: false)
+        self._mapScale = State(initialValue: 0.8)
+        self._buttonOpacity = State(initialValue: 0)
+        self._swipeGlowOpacity = State(initialValue: 0)
+
         let defaultRegion = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 38.8205, longitude: -76.9573),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
-        if let coords = VArrived.staticParameters.fromCoords,
+
+        if let coords = trip.fromCoords,
            coords.latitude.isFinite, coords.longitude.isFinite {
             self._region = State(initialValue: MKCoordinateRegion(
                 center: CLLocationCoordinate2D(latitude: coords.latitude, longitude: coords.longitude),
@@ -53,6 +56,29 @@ struct VArrived: View {
             self._region = State(initialValue: defaultRegion)
         }
     }
+    
+
+    // new end 
+
+
+
+
+    
+    // init() {
+        // let defaultRegion = MKCoordinateRegion(
+        //     center: CLLocationCoordinate2D(latitude: 38.8205, longitude: -76.9573),
+        //     span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        // )
+        // if let coords = VArrived.staticParameters.fromCoords,
+        //    coords.latitude.isFinite, coords.longitude.isFinite {
+        //     self._region = State(initialValue: MKCoordinateRegion(
+        //         center: CLLocationCoordinate2D(latitude: coords.latitude, longitude: coords.longitude),
+        //         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        //     ))
+        // } else {
+        //     self._region = State(initialValue: defaultRegion)
+        // }
+    // }
     
     var body: some View {
         NavigationStack {
@@ -122,19 +148,19 @@ struct VArrived: View {
                         }
                         
                         // Pickup address with divider
-                        VStack(spacing: 8) {
-                            Text("Pick-up: \(VArrived.staticParameters.from ?? "Unknown Address")")
-                                .font(.custom("Nunito-Bold", size: 14))
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
-                                .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
+                        // VStack(spacing: 8) {
+                        //     Text("Pick-up: \(VArrived.staticParameters.from ?? "Unknown Address")")
+                        //         .font(.custom("Nunito-Bold", size: 14))
+                        //         .foregroundColor(.white)
+                        //         .multilineTextAlignment(.center)
+                        //         .padding(.horizontal, 20)
+                        //         .shadow(color: .black.opacity(0.2), radius: 2, x: 1, y: 1)
                             
-                            Rectangle()
-                                .fill(Color.white.opacity(0.3))
-                                .frame(height: 1)
-                                .padding(.horizontal, 40)
-                        }
+                        //     Rectangle()
+                        //         .fill(Color.white.opacity(0.3))
+                        //         .frame(height: 1)
+                        //         .padding(.horizontal, 40)
+                        // }
                         
                         // Swipe button
                         SwipeButton(navigate: $navigateToConfirm, glowOpacity: $swipeGlowOpacity)
@@ -385,8 +411,29 @@ struct VArrived: View {
     // }
 // }
 
+
+// struct VArrived_Previews: PreviewProvider {
+//     static var previews: some View {
+//         VArrived()
+//     }
+// }
+
 struct VArrived_Previews: PreviewProvider {
     static var previews: some View {
-        VArrived()
+        // Create a sample TripParameters object for the preview
+        let sampleTrip = TripParameters(
+            tripId: "123",
+            to: "Destination",
+            from: "5167 Lambert Dr, Temple Hills, MD",
+            distance: 5.0,
+            price: 10.0,
+            toCoords: .init(latitude: 38.8205, longitude: -76.9573),
+            fromCoords: .init(latitude: 38.8205, longitude: -76.9573),
+            estimatedTime: 15.0,
+            riderName: "John Doe"
+        )
+        
+        // Pass the sample trip to the VArrived view
+        VArrived(trip: sampleTrip)
     }
 }
